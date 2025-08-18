@@ -1,16 +1,25 @@
 import { color } from 'framer-motion'
 import React from 'react'
-import { snapshot, useSnapshot } from 'valtio'
+import { snapshot, useSnapshot } from 'valtio';
+import {getContrastingColor} from '../config/helpers'
 import state from '../store'
 
 const CustomButton = ({style,title,type,customStyles,handleClick}) => {
     const snap = useSnapshot(state);
+    
     const generateStyle = (type)=>{
         if(type === 'filled'){
             return{
                 borderWidth:'1px',
                 backgroundColor:snap.color,
-                color:"#fff"
+                color:getContrastingColor(snap.color)
+            }
+        }
+        else if(type === 'outline'){
+            return{
+                borderWidth:'1px',
+                borderColor:snap.color,
+                color: snap.color
             }
         }
     }
